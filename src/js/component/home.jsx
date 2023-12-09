@@ -15,25 +15,28 @@
 		}
 		
 		return (
-			<div className="text-center p-5 m-5">
+			<div className="text-center p-3 m-5" >
+				<h3 className="text-center p-4 fs-1" style={{color: "indianRed"}}>Todos</h3>
+				<div className="container">
 				<form>
-				<h1 className="text-center mt-5">To Do List</h1>
 				<div className="form-group">
 					{/* Evento onChange con función flecha para cambiar por el valor de newtask */}
 					{/* Evento keyDown para al presionar la tecla enter, se ejecute la función de añadir la task al array. Se usa el default porque si no por defecto no lo hace */}
 					{/* IMPORTANTE, en operador ternario siempre tiene que haber un else, sino dará error */}
-					<input type="" className="form-control" id="task" aria-describedby="taskAdded" placeholder="What needs to be done?" onChange={(event)=> setNewTask(event.target.value)} onKeyDown={(event)=> event.key === "Enter" ? (addTask(), event.preventDefault()) : null}/>
+					<input type="" className="form-control p-3 rounded-0 no-outline" id="task" aria-describedby="taskAdded" placeholder="What needs to be done?" onChange={(event)=> setNewTask(event.target.value)} onKeyDown={(event)=> event.key === "Enter" ? (addTask(), event.preventDefault()) : null}/>
+					{taskList.map((newTask, index) => (
+					<input className="form-control m-0 p-3 rounded-0" key={index} value={newTask}/>
+					))}
+
 				</div>
 
 				{/* Creada una UL para que por cada task del array, me cree un imput ordenado */}
-				<ul>
-					{taskList.map((newTask, index) => (
-					<input className="form-control m-0" key={index} value={newTask}/>
-					))}
-				</ul>
 				</form>
 				{/* Para que vaya contando las tareas pendientes se usa .length para que se vaya actualizando con los datos que haya en el array */}
-				<p className="text-start">{taskList.length} Items Left </p>
+				<p className="text-start mt-3 border-top p-2">{taskList.length} Items Left </p>
+
+
+				</div>
 			</div>
 		);
 	};
