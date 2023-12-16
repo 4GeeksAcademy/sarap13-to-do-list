@@ -7,6 +7,9 @@
 		// Creamos los estados, 1 para las tareas que escribamos y el otro para el array donde iran las tareas que escribamos.
 		const[newtask, setNewTask] = useState("");
 		const[taskList, setTaskList] = useState([]);
+		// Creamos estado para cambiar el placeholder del input cuando le demos a enter se reestablezca.
+		const[placeHolder, setPlaceHolder] = useState ("Whats needs to be done?")
+
 		// Creamos estado para la visibilidad del span X se ponga de visible a no visible
 		const[xVisible,setXVisible] = useState("d-none");
 		// Creamos el estado para cuando pasemos el mouse por la tarea aparezca la X.
@@ -16,7 +19,10 @@
 		function addTask () {
 			setTaskList([...taskList, newtask]);
 			setNewTask("");
+			setPlaceHolder("Whats needs to be done?");
 		}
+
+
 
 		// Definimos función para borrar item de la lista. en el filter le proporcionamos el elemento y el indice de éste para que al eliminarlo se actualize y reestructure la lista.
 		function deleteList (taskToRemove) {
@@ -45,7 +51,8 @@
 					{/* Evento onChange con función flecha para cambiar por el valor de newtask */}
 					{/* Evento keyDown para al presionar la tecla enter, se ejecute la función de añadir la task al array. Se usa el default porque si no por defecto no lo hace */}
 					{/* IMPORTANTE, en operador ternario siempre tiene que haber un else, sino dará error */}
-					<input type="" className="form-control p-3 rounded-0 no-outline mb-1" id="task" aria-describedby="taskAdded" placeholder="What needs to be done?" 		onChange={(event)=> setNewTask(event.target.value)} onKeyDown={(event)=> event.key === "Enter" ? (addTask(), event.preventDefault()) : null}/>
+					{/* El event.target.value es que cuando le demos a enter, el valor del input se elimine y se quede a 0, para que se vea el place holder. */}
+					<input type="" className="form-control p-3 rounded-0 no-outline mb-1 text-break" id="task" aria-describedby="taskAdded" placeholder={placeHolder} 		onChange={(event)=> setNewTask(event.target.value)} onKeyDown={(event)=> event.key === "Enter" ? (addTask(),(event.target.value = ""), event.preventDefault()) : null}/>
 
 					{/* Creamos ul donde se irán listando las tareas que vayamos escribiendo. Creamos un map donde por cada ent */}
 					<ul className="p-0 d-flex flex-column gap-1">
